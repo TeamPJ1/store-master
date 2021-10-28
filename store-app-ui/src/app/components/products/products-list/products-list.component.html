@@ -1,0 +1,14 @@
+<table class="table" *ngIf="productsStateInput">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Quantity</th>
+    <th>Available</th>
+    <th>Selected</th>
+  </tr>
+  <app-product-item [product]="p"
+                    *ngFor="let p of productsStateInput.products"
+                    style="display: contents"></app-product-item>
+</table>
+

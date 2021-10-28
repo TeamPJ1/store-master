@@ -1,0 +1,113 @@
+# Servers:
+#		node js :   http://localhost:3000
+#		angular :   http://localhost:4200
+# install dependencies
+    # NB:  --save : to add to file package.json
+npm install --save json-server
+npm install --save concurrently
+npm install --save bootstrap
+npm install --save jquery
+npm install --save font-awesome
+npm install --save @ngrx/store
+npm install --save @ngrx/effects
+npm install --save @ngrx/store-devtools
+
+# npm install : launch after download project from repository. nodejs install all dependencies in package.json
+# tslint.json: fichier des normes de codages for developpers equivalent au formater
+
+#============================
+# create components
+ng g c components/nav-bar
+ng g c components/products
+ng g c components/home
+ng g c components/products/product-add
+ng g c components/products/product-edit
+ng g c components/products/products-nav-bar
+ng g c components/products/products-list
+ng g c components/products/products-list/product-item
+ng g c components/stats
+
+# copier example code navbar bootstrap w3schools
+# add style of bootstrap to project in angular.json
+  "styles": [
+     "node-modules/bootstrap/dist/css/bootstrap.min.css"
+  ]
+# or you can use import @import in style.css
+ @import "node-modules/bootstrap/dist/css/bootstrap.min.css"
+ or @import "~bootstrap/dist/css/bootstrap.min.css"
+
+# add jquery to project
+  "scripts": [
+      "node-modules/jquery/dist/jquery.min.js"
+      "node-modules/bootstrap/dist/js/bootstrap.min.js"
+   ]
+# create components
+ng g c components/products
+ng g c components/home
+# config path in app-routing.module.ts
+  const routes: Routes = [
+    { path:"products", component: ProductsComponent},
+    { path:"", component: HomeComponent}
+  ];
+# add <router-outlet></router-outlet> in app.component.html
+
+#==============================
+# Convention:
+  # service : XXXX.service.ts
+  # model : XXXX.model.ts
+  # component : XXXX.component.ts
+  # state : XXXX.state.ts
+  # module : XXXX.module.ts
+  # variable$ :  for observable variable
+# add service products.service.ts (add @injectable)
+# Modules :
+    # - HttpClientModule : for des requetes vers server
+    # - FormsModule :
+    # - ReactiveFormsModule :  binding model and validation for form
+
+# class:
+   # Router: this.router.navigateByUrl("/editProduct/");
+   # ActivateRoute: recuperer variable depuis l'URL (let id= activatedRoute.snapshot.params.id;)
+   # FormBuilder:  this.productFormGroup = this.formBuiler.group({
+                       name: ["", Validators.required],
+                       price: [0, Validators.required],
+                       quantity: [0, Validators.required],
+                       selected: [true, Validators.required],
+                       available: [true, Validators.required]
+                     });
+   # FormGroup: object for binding with form
+   # EventEmitter: emit a  event
+# data?: string : variable non obligatoire
+# events: (click), (ngSubmit)...
+# *ngIf , *ngFor , *ngSwitchCase
+# [ngSwitch], [ngClass],  [disabled], [ngForm]
+# @Component, @Injectable,@Ouput
+
+
+#Events:
+  #  Subject<T>: T state , Subject est un broker
+
+# NGRX:
+# @ngrx: modules
+  #@ngrx/store
+  #@ngrx/effects
+  #@ngrx/reducer
+  Tools:  #@ngrx/store-devtools: outil pour surveiller ngrx store sur le naviagteur via un plug-in
+#  NB: the effects call rest service and dispatch success or error event after response
+
+
+#Git
+  git init
+  git config --global user.name "Sedo Kray"
+  git config --global user.email "sedokray@gmail.com"
+
+  git add .
+  git commit -m "first commit"
+  git remote add origin https://gitlab.com/teamrp1/angular11-web-cat-app-ngrx.git
+  git branch -M main
+  git push -u origin branch_name
+
+  git branch new_branch_name
+  git checkout branch_name
+
+

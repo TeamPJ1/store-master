@@ -1,0 +1,61 @@
+<div class="container">
+  <ng-container *ngIf="productFormGroup">
+
+    <ng-container *ngIf="productState as pState" [ngSwitch]="pState.dataState">
+      <ng-container *ngSwitchCase="DataStateEnum.LOADING">
+        <h1> LOADING ...</h1>
+      </ng-container>
+      <ng-container *ngSwitchCase="DataStateEnum.ERROR">
+        <div class="p-2 danger">
+          {{pState.errorMessage}}
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="DataStateEnum.LOADED" class="p-2">
+        <div class="alert-success container p-3 m-3">
+          <span> Product Saved Successfully</span>
+          <button class="btn btn-success ml-3" (click)="newProduct()"> New Product</button>
+          <button class="btn btn-success ml-3" (click)="onContinue()"> Continue</button>
+        </div>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="DataStateEnum.NEW">
+        <form [formGroup]="productFormGroup" (ngSubmit)="onSaveProduct()">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" formControlName="name" id="name"
+                   [ngClass]="{'is-invalid':submitted && productFormGroup.controls.name.errors}">
+            <div *ngIf="submitted && productFormGroup.controls.name.errors" class="invalid-feedback">
+              <div *ngIf="productFormGroup.controls.name.errors.required">Name is required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Price</label>
+            <input type="text" class="form-control" formControlName="price" id="price"
+                   [ngClass]="{'is-invalid':productFormGroup.controls.price.errors}">
+            <div *ngIf="submitted && productFormGroup.controls.price.errors" class="invalid-feedback">
+              <div *ngIf="productFormGroup.controls.price.errors.required">Price is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Quantity</label>
+            <input type="text" class="form-control" formControlName="quantity" id="quantity"
+                   [ngClass]="{'is-invalid':productFormGroup.controls.quantity.errors}">
+            <div *ngIf="submitted && productFormGroup.controls.quantity.errors" class="invalid-feedback">
+              <div *ngIf="productFormGroup.controls.quantity.errors">Quantity is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Selected</label>
+            <input type="checkbox" class="form-check" formControlName="selected">
+          </div>
+          <div class="form-group">
+            <label>Available</label>
+            <input type="checkbox" class="form-check" formControlName="available">
+          </div>
+          <button class="btn  btn-sm btn-success">save</button>
+        </form>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</div>

@@ -1,0 +1,52 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Computer",
+      "price": "500",
+      "quantity": "60",
+      "selected": true,
+      "available": false
+    },
+    {
+      "id": 2,
+      "name": "Printer",
+      "price": 2000,
+      "quantity": "1000",
+      "selected": true,
+      "available": true
+    },
+    {
+      "id": 3,
+      "name": "Smartphone",
+      "price": 4000,
+      "quantity": 500,
+      "selected": false,
+      "available": true
+    },
+    {
+      "name": "TV",
+      "price": "1000",
+      "quantity": "12",
+      "selected": true,
+      "available": true,
+      "id": 4
+    },
+    {
+      "name": "Tablette",
+      "price": "500",
+      "quantity": "50",
+      "selected": false,
+      "available": true,
+      "id": 5
+    },
+    {
+      "name": "Test12",
+      "price": "12",
+      "quantity": 0,
+      "selected": true,
+      "available": true,
+      "id": 6
+    }
+  ]
+}

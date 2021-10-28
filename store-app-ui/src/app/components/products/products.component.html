@@ -1,0 +1,22 @@
+<div class="p-2">
+  <app-products-nav-bar></app-products-nav-bar>
+
+  <div class="container">
+    <ng-container *ngIf="(productsState$ | async) as pState" [ngSwitch]="pState.dataState">
+      <ng-container *ngSwitchCase="DataStateEnum.INITIAL">
+        <div class="p-2">Initial State</div>
+      </ng-container>
+      <ng-container *ngSwitchCase="DataStateEnum.LOADING">
+        <h1> LOADING ...</h1>
+      </ng-container>
+      <ng-container *ngSwitchCase="DataStateEnum.ERROR">
+        <div class="p-2 danger">
+          {{pState.errorMessage}}
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="DataStateEnum.LOADED" class="p-2">
+        <app-products-list [productsStateInput]="pState"></app-products-list>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

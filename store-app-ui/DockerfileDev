@@ -1,0 +1,11 @@
+### STAGE 1: Build ###
+FROM node:16-alpine AS app-builder
+#RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY package*.json db.json angular.json ./
+RUN npm install -g @angular/cli @angular-devkit/build-angular concurrently json-server && npm install
+COPY . .
+EXPOSE 4200
+
+CMD concurrently "ng serve --host 0.0.0.0"  "json-server --watch db.json --host 0.0.0.0"
+
