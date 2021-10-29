@@ -1,11 +1,11 @@
 version: '3'
 services:
   discovery:
-    image: sedokray/eureka-discovery:0.0.1-SNAPSHOT
+    image: eureka-discovery:0.0.1-SNAPSHOT
     ports:
       - 8761:8761
   gateway:
-    image: sedokray/gateway-service:0.0.1-SNAPSHOT
+    image: gateway-service:0.0.1-SNAPSHOT
     volumes:
       - ./config-data:/var/config-data
     environment:
@@ -17,15 +17,17 @@ services:
     ports:
       - 8888:8888
   inventory-service:
-    image: sedokray/inventory-service:0.0.1-SNAPSHOT
+    image: inventory-service:0.0.1-SNAPSHOT
     environment:
       - JAVA_OPTS=
         -DEUREKA_SERVER=http://discovery:8761/eureka
     depends_on:
       - discovery
       - gateway
+    ports:
+      - 8082:8082
   store-app-ui:
-    image: sedokray/store-app-ui:0.0.1-SNAPSHOT
+    image: store-app-ui:0.0.1-SNAPSHOT
     environment:
       - JAVA_OPTS=
         -DEUREKA_SERVER=http://discovery:8761/eureka
