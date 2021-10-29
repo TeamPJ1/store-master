@@ -17,13 +17,17 @@ public class DevCorsConfiguration {
     @Value("${allowed.origin}")
     private String allowedOrigin;
 
+    @Value("${allowed.origin.pattern}")
+    private String allowedOriginPattern;
+
     @Bean
     public WebMvcConfigurer getCorsConfiguration() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins(allowedOrigin)
+                        //.allowedOrigins(allowedOrigin)
+                        .allowedOriginPatterns(allowedOriginPattern)
                         .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
@@ -40,7 +44,8 @@ public class DevCorsConfiguration {
             @Override
             public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
                 cors.addMapping("/**")
-                        .allowedOrigins(allowedOrigin)
+//                        .allowedOrigins(allowedOrigin)
+                        .allowedOriginPatterns(allowedOriginPattern)
                         .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
