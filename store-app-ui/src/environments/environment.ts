@@ -6,7 +6,8 @@ import {HttpHeaders} from "@angular/common/http";
 
 export const environment = {
   production: false,
-  host: "Http://localhost:8082",
+  host: "Http://localhost:8888",
+  productBackendAPI: "inventory-service",
   // host: "Http://localhost:3000", //host nodejs json-server
   unreachableHost: "Http://localhost:8000"
 };
