@@ -1,4 +1,5 @@
 #podename-{replicas-index}.{serviceName}.default.svc.cluster.local
+# eureka-0.eureka
 apiVersion: v1
 kind: ConfigMap
 metadata:
