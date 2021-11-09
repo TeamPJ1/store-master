@@ -34,8 +34,8 @@ export class ProductsEffects {
       mergeMap((action: ProductsActions) => {
         return this.productsService.getAllProducts().pipe(
           map(response => {
-            console.log(response._embedded.products);
-            return new GetAllProductsActionSuccess(response._embedded.products);
+            console.log(response);
+            return new GetAllProductsActionSuccess(response);
           }),
           catchError((err) => {
             console.log(err);

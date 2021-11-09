@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inventory-service-app
+  labels:
+    app: inventory-service-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inventory-service-app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: inventory-service-app
+    spec:
+      containers:
+        - image: inventory-service:0.0.1-SNAPSHOT
+          name: inventory-service
+          ports:
+            - containerPort: 8082
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: inventory-service-svc
+  labels:
+    app: inventory-service-app
+spec:
+  selector:
+    app: inventory-service-app
+  type: clusterIP
+  ports:
+    - port: 8082
+      targetPort: 8082

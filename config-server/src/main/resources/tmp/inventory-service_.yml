@@ -1,0 +1,28 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: inventory-service
+  profiles:
+    active:
+      - native
+  cloud:
+    discovery:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:inventory-db
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+allowed:
+  origin:
+    pattern: "**"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

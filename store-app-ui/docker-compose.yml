@@ -1,39 +1,45 @@
 version: '3'
 services:
-  discovery:
-    image: eureka-discovery:0.0.1-SNAPSHOT
+  eureka-server:
+    image: eureka-server:0.0.1-SNAPSHOT
     ports:
       - 8761:8761
-  gateway:
-    image: gateway-service:0.0.1-SNAPSHOT
+    restart: always
+  gateway-proxy:
+    image: gateway-proxy:0.0.1-SNAPSHOT
     volumes:
       - ./config-data:/var/config-data
     environment:
       - JAVA_OPTS=
-        -DEUREKA_SERVER=http://discovery:8761/eureka
-        -Dspring.cloud.config.server.native.searchLocations=/var/config-data
+        -DEUREKA_SERVER=http://eureka-discovery:8761/eureka
     depends_on:
-      - discovery
+      - eureka-server
     ports:
       - 8888:8888
   inventory-service:
     image: inventory-service:0.0.1-SNAPSHOT
     environment:
       - JAVA_OPTS=
-        -DEUREKA_SERVER=http://discovery:8761/eureka
+        -DEUREKA_SERVER=http://eureka-discovery:8761/eureka
+    restart: always
     depends_on:
-      - discovery
-      - gateway
+      - eureka-server
+      - gateway-proxy
     ports:
       - 8082:8082
   store-app-ui:
     image: store-app-ui:0.0.1-SNAPSHOT
     environment:
       - JAVA_OPTS=
-        -DEUREKA_SERVER=http://discovery:8761/eureka
+        -DEUREKA_SERVER=http://eureka-discovery:8761/eureka
     restart: on-failure
     depends_on:
-      - discovery
-      - gateway
+      - eureka-server
+      - gateway-proxy
     ports:
       - 8181:80
+
+networks:
+  default:
+    external:
+      name: microblink

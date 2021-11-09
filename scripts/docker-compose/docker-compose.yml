@@ -1,0 +1,51 @@
+version: '3'
+services:
+  eureka-server:
+    image: eureka-server:0.0.1-SNAPSHOT
+    ports:
+      - 8761:8761
+    restart: always
+  config-server:
+    image: config-server:0.0.1-SNAPSHOT
+    volumes:
+      - ./config-data:/var/config-data
+    ports:
+      - 8888:8888
+    depends_on:
+      - eureka-server
+  inventory-service:
+    image: inventory-service:0.0.1-SNAPSHOT
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      SPRING_CLOUD_CONFIG_URI: http://config-server:8888
+    restart: always
+    depends_on:
+      - eureka-server
+      - config-server
+    ports:
+      - 8082:8082
+  gateway-proxy:
+    image: gateway-proxy:0.0.1-SNAPSHOT
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+    depends_on:
+      - eureka-server
+      - config-server
+      - inventory-service
+    ports:
+      - 8700:8700
+  store-app-ui:
+    image: store-app-ui:0.0.1-SNAPSHOT
+    restart: on-failure
+    depends_on:
+      - eureka-server
+      - config-server
+      - inventory-service
+      - gateway-proxy
+    ports:
+      - 8181:80
+
+networks:
+  default:
+    external:
+      name: microblink

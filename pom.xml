@@ -11,8 +11,8 @@
     <name>parent-project</name>
     <description>Parent project for Spring Boot</description>
     <modules>
-        <module>gateway-service</module>
-        <module>eureka-discovery</module>
+        <module>gateway-proxy</module>
+        <module>eureka-server</module>
         <module>inventory-service</module>
     </modules>
 </project>
