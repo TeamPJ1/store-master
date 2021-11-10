@@ -5,14 +5,18 @@ services:
     ports:
       - 8761:8761
     restart: always
+    networks:
+      - back-network
   config-server:
     image: config-server:0.0.1-SNAPSHOT
     volumes:
       - ./config-data:/var/config-data
-    ports:
-      - 8888:8888
     depends_on:
       - eureka-server
+    ports:
+      - 8888:8888
+    networks:
+      - back-network
   inventory-service:
     image: inventory-service:0.0.1-SNAPSHOT
     environment:
@@ -24,6 +28,8 @@ services:
       - config-server
     ports:
       - 8082:8082
+    networks:
+      - back-network
   gateway-proxy:
     image: gateway-proxy:0.0.1-SNAPSHOT
     environment:
@@ -34,6 +40,8 @@ services:
       - inventory-service
     ports:
       - 8700:8700
+    networks:
+      - back-network
   store-app-ui:
     image: store-app-ui:0.0.1-SNAPSHOT
     restart: on-failure
@@ -44,8 +52,15 @@ services:
       - gateway-proxy
     ports:
       - 8181:80
+    networks:
+      - back-network
 
 networks:
-  default:
-    external:
-      name: microblink
+  front-network:
+    driver: bridge
+  back-network:
+    driver: bridge
+#networks:
+#  default:
+#    external:
+#      name: microblink
