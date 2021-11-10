@@ -56,10 +56,11 @@ services:
       - back-network
 
 networks:
-  front-network:
-    driver: bridge
   back-network:
     driver: bridge
+#  front-network:
+#    driver: bridge
+
 #networks:
 #  default:
 #    external:
