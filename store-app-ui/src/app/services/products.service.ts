@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {environment, httpOptions} from "../../environments/environment";
+import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import {Product, GetProductResponse} from "../model/product.model";
 import {FormGroup} from "@angular/forms";
