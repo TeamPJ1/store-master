@@ -54,12 +54,13 @@ services:
       - 8181:80
     networks:
       - back-network
+      - front-network
 
 networks:
   back-network:
     driver: bridge
-#  front-network:
-#    driver: bridge
+  front-network:
+    driver: bridge
 
 #networks:
 #  default:

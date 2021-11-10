@@ -1,13 +1,13 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: wordpress-ingress
+  name: storeapp-ingress
 spec:
   rules:
-    - host: 'test.hub'
+    - host: 'storeapp.kub'
       http:
         paths:
           - path: /
             backend:
-              serviceName: frontend-store-app
-              servicePort: 80
+              serviceName: store-app-ui-svc
+              servicePort: 8081
