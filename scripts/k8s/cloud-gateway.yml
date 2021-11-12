@@ -27,7 +27,7 @@ kind: Service
 metadata:
   name: cloud-gateway-svc
   labels:
-    app: ccloud-gateway-app
+    app: cloud-gateway-app
 spec:
   selector:
     app: cloud-gateway-app
