@@ -8,11 +8,12 @@ cd scripts/k8s
 #kubectl apply -f ns.yml
 # Services in Kubernetes expose their endpoint using a common DNS pattern. It looks like this:
 # <Service Aame>.<Namespace Name>.svc.cluster.local
-kubectl create namespace storestg
-kubectl apply -f  eureka-server.yml -n storestg
-kubectl apply -f  config-server.yml -n storestg
-kubectl apply -f  cloud-gateway.yml -n storestg
-kubectl apply -f  inventory-service.yml -n storestg
-kubectl apply -f  store-app-ui.yml -n storestg
-kubectl apply -f  ingress.yml -n storestg
 
+kubectl create namespace storestg
+#kubectl apply -f  eureka-server.yml -n storestg
+kubectl create -f  eureka-server.yml -n storestg
+kubectl create -f  config-server.yml -n storestg
+kubectl create -f  cloud-gateway.yml -n storestg
+kubectl create -f  inventory-service.yml -n storestg
+kubectl create -f  store-app-ui.yml -n storestg
+kubectl create -f  ingress.yml -n storestg
