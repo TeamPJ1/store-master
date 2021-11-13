@@ -26,7 +26,10 @@ kubectl delete -f  cloud-gateway.yml -n $namespace
 kubectl delete -f  inventory-service.yml -n $namespace
 kubectl delete -f  store-app-ui.yml -n $namespace
 kubectl delete -f  ingress.yml -n $namespace
-kubectl delete namespace $namespace
+kubectl get namespace $NAMESPACE -o json > $NAMESPACE.json
+sed -i -e 's/"kubernetes"//' $NAMESPACE.json
+kubectl replace --raw "/api/v1/namespaces/$NAMESPACE/finalize" -f ./$NAMESPACE.json
+
 # kubectl delete namespace $namespace  --force --grace-period=0  # force suppression
 echo "###### Deploy store app using k8s"
 kubectl create namespace $namespace
