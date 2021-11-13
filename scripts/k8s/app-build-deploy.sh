@@ -6,8 +6,14 @@ do
         s) state=${OPTARG};;
     esac
 done
-echo "Namespace: $namespace";
-echo "State: $state";
+echo "Namespace: "$namespace
+echo "State: $state"
+
+if [ -z "$namespace" ]
+then
+  echo "This script requires a namespace argument input. None found. Exiting."
+  exit 1
+fi
 
 echo "###### Build docker images for backend services"
 mvn compile com.google.cloud.tools:jib-maven-plugin:2.3.0:dockerBuild

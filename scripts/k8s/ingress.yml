@@ -6,11 +6,12 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-    - host: 'storeapp.kub'
+    - host: 'web.store.kub'
       http:
         paths:
           - path: /
             backend:
               service:
                 name: store-app-ui-svc
-                port: 8081
+                port:
+                  number: 8081
