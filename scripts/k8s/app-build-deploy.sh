@@ -16,7 +16,7 @@ then
   exit 1
 fi
 
-if [ -z "$build"] && [ $build == true ];
+if [ -z "$build"] && [ $build = true ];
 then
   echo "###### Build docker images for backend services"
   mvn compile com.google.cloud.tools:jib-maven-plugin:2.3.0:dockerBuild
