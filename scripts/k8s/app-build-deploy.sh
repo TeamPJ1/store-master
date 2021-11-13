@@ -1,10 +1,11 @@
 #!/bin/bash
-while getopts n:s: flag
+while getopts n:s:b:ip: flag
 do
     case "${flag}" in
         n) namespace=${OPTARG};;
         s) state=${OPTARG};;
         b) build=${OPTARG};;
+        ip) ipaddress=${OPTARG};;
     esac
 done
 echo "Namespace: "$namespace
@@ -52,4 +53,4 @@ kubectl create -f  inventory-service.yml -n $namespace
 kubectl create -f  store-app-ui.yml -n $namespace
 kubectl create -f  ingress.yml -n $namespace
 echo "###### Test store app"
-curl -H "Host: storeapp.kub" http://localhost/
+curl -H "Host: web.store.kub" $ipaddress
