@@ -5,7 +5,7 @@ do
         n) namespace=${OPTARG};;
         s) state=${OPTARG};;
         b) build=${OPTARG};;
-        ip) ipaddress=${OPTARG};;
+        i) ipaddress=${OPTARG};;
     esac
 done
 echo "Namespace: "$namespace
