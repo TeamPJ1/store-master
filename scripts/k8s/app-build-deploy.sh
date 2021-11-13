@@ -1,5 +1,5 @@
 #!/bin/bash
-while getopts n:s:b:ip: flag
+while getopts n:s:b:i: flag
 do
     case "${flag}" in
         n) namespace=${OPTARG};;
