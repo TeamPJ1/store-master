@@ -30,12 +30,13 @@ cd scripts/k8s
 # <Service Aame>.<Namespace Name>.svc.cluster.local
 
 echo "###### Delete existed resource store app"
+kubectl delete -f  ingress.yml -n $namespace
+kubectl delete -f  store-app-ui.yml -n $namespace
+kubectl delete -f  cloud-gateway.yml -n $namespace
 kubectl delete -f  eureka-server.yml -n $namespace
 kubectl delete -f  config-server.yml -n $namespace
-kubectl delete -f  cloud-gateway.yml -n $namespace
 kubectl delete -f  inventory-service.yml -n $namespace
-kubectl delete -f  store-app-ui.yml -n $namespace
-kubectl delete -f  ingress.yml -n $namespace
+
 kubectl get namespace $namespace -o json > $namespace.json
 sed -i -e 's/"kubernetes"//' $namespace.json
 kubectl replace --raw "/api/v1/namespaces/$namespace/finalize" -f ./$namespace.json
