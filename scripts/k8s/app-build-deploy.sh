@@ -10,6 +10,8 @@ do
 done
 echo "Namespace: "$namespace
 echo "State: $state"
+echo "Build: $build"
+echo "Ip address: $ipaddress"
 
 if [ -z "$namespace" ]
 then
