@@ -13,12 +13,13 @@ echo "Namespace: "$namespace
 echo "State: $state"
 echo "Build: $build"
 echo "Ip address: $ipaddress"
-echo "Version: $version"
+
 
 if [[ "$version" == null ]]
 then
-  version= "0.0.1-SNAPSHOT"
+  version="0.0.1-SNAPSHOT"
 fi
+echo "Version: $version"
 
 pushRepo=false
 if [[ "$build" == "true" ]]
