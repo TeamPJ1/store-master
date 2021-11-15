@@ -14,8 +14,13 @@ echo "State: $state"
 echo "Build: $build"
 echo "Ip address: $ipaddress"
 
+if [ -z "$namespace" ]
+then
+  echo "This script requires a namespace argument input. None found. Exiting."
+  exit 1
+fi
 
-if [[ "$version" == null ]]
+if [-z "$namespace" ]
 then
   version="0.0.1-SNAPSHOT"
 fi
