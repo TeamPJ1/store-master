@@ -59,7 +59,7 @@ cd scripts/k8s
 # <Service Aame>.<Namespace Name>.svc.cluster.local
 
 echo "###### Delete existed resource store app"
-kubectl delete -f  ingress.yml -n $namespace
+#kubectl delete -f  ingress.yml -n $namespace
 kubectl delete -f  store-app-ui.yml -n $namespace
 kubectl delete -f  cloud-gateway.yml -n $namespace
 kubectl delete -f  eureka-server.yml -n $namespace
@@ -79,6 +79,10 @@ kubectl create -f  config-server.yml -n $namespace
 kubectl create -f  cloud-gateway.yml -n $namespace
 kubectl create -f  inventory-service.yml -n $namespace
 kubectl create -f  store-app-ui.yml -n $namespace
-kubectl create -f  ingress.yml -n $namespace
+#kubectl create -f  ingress.yml -n $namespace
 echo "###### Test store app"
 curl -H "Host: web.store.kub" $ipaddress
+curl  $ipaddress/store
+echo "###### Check resources"
+echo "kubectl get all -n $namespace"
+kubectl get all -n $namespace
