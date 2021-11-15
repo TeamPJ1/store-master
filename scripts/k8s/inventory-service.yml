@@ -33,9 +33,9 @@ spec:
                   name: config-server-cm
                   key: config_server_address
       initContainers: # waiting to initialise other service before creating pod
-        - name: init-eureka-lb
+        - name: init-eureka
           image: busybox:1.28
-          command: ['sh', '-c', "until nslookup eureka-lb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo en attente de eureka-lb; sleep 2; done"]
+          command: ['sh', '-c', "until nslookup eureka.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo en attente de eureka; sleep 2; done"]
         - name: init-config-server-svc
           image: busybox:1.28
           command: ['sh', '-c', "until nslookup config-server-svc.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo en attente de config-server-svc; sleep 2; done"]

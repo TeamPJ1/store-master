@@ -28,9 +28,9 @@ spec:
                   name: eureka-cm
                   key: eureka_service_address
       initContainers:
-        - name: init-eureka-lb
+        - name: init-eureka
           image: busybox:1.28
-          command: ['sh', '-c', "until nslookup eureka-lb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo en attente de eureka-lb; sleep 2; done"]
+          command: ['sh', '-c', "until nslookup eureka.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo en attente de eureka; sleep 2; done"]
 ---
 apiVersion: v1
 kind: Service

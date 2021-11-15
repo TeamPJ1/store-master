@@ -42,9 +42,9 @@ spec:
                   name: config-server-cm
                   key: config_server_address
       initContainers:
-        - name: init-eureka-lb
+        - name: init-eureka
           image: busybox:1.28
-          command: ['sh', '-c', "until nslookup eureka-lb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo en attente de eureka-lb; sleep 2; done"]
+          command: ['sh', '-c', "until nslookup eureka.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo en attente de eureka; sleep 2; done"]
 
 ---
 apiVersion: v1
@@ -58,8 +58,8 @@ spec:
     app: config-server
   type: ClusterIP # by ClusterIP , otherwase NodePort, LoadBalancer, ExternalName
   ports:
-    - port: 8761
-      targetPort: 8761
+    - port: 8888
+      targetPort: 8888
 
 # ClusterIP: Expose le service sur une IP interne au cluster. Le choix de cette valeur rend le service uniquement accessible à partir du cluster. Il s'agit du ServiceType par défaut.
 # NodePort: Expose le service sur l'IP de chaque nœud sur un port statique (le NodePort). Un service ClusterIP, vers lequel le service NodePort est automatiquement créé. Vous pourrez contacter le service NodePort, depuis l'extérieur du cluster, en demandant <NodeIP>: <NodePort>.
