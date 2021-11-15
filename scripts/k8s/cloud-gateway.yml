@@ -21,6 +21,10 @@ spec:
           name: gateway-proxy
           ports:
             - containerPort: 8700
+      initContainers:
+        - name: init-eureka-lb
+          image: busybox:1.28
+          command: ['sh', '-c', "until nslookup eureka-lb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo en attente de eureka-lb; sleep 2; done"]
 ---
 apiVersion: v1
 kind: Service

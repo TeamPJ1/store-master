@@ -21,6 +21,10 @@ spec:
           name: store-app-ui
           ports:
             - containerPort: 80
+      initContainers: # waiting to initialise other service before creating pod
+        - name: init-cloud-gateway-svc
+          image: busybox:1.28
+          command: ['sh', '-c', "until nslookup cloud-gateway-svc.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo en attente de cloud-gateway-svc; sleep 2; done"]
 ---
 apiVersion: v1
 kind: Service
