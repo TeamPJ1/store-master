@@ -14,17 +14,13 @@ echo "Namespace: "$namespace
 echo "State: $state"
 echo "Build: $build"
 echo "Ip address: $ipaddress"
+echo "Version: $version"
 
+# if [ -z "$namespace" ]   équivalent à [ ! -n "$namespace" ]
 if [ -z "$namespace" ]
 then
   echo "This script requires a namespace argument input. None found. Exiting."
   exit 1
-fi
-
-if [! -n "$version" ]
-then
-  version="0.0.1-SNAPSHOT"
-  echo "Version: $version"
 fi
 
 
@@ -46,13 +42,13 @@ CI_REPO="sedokray"
 echo "###### Push docker image to docker registry"
 if [[ "$pushRepo" == "true" ]]
 then
-  echo "###### Connect to docker registry"
+  echo "************ STEP1 :Connect to docker registry"
   docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
   for image in eureka-server config-server gateway-proxy inventory-service store-app-ui
   do
-    echo "###### Tag docker image: $CI_REPO/$image:$version"
+    echo "************ Tag docker image: $CI_REPO/$image:$version"
     docker tag "$image:$version" "$CI_REPO/$image:$version"
-    echo "###### Push docker image: $CI_REPO/$image:$version"
+    echo "************ Push docker image: $CI_REPO/$image:$version"
     docker push "$CI_REPO/$image:$version"
   done
 fi

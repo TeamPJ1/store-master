@@ -17,7 +17,7 @@ spec:
         app: inventory-service-app
     spec:
       containers:
-        - image: inventory-service:0.0.1-SNAPSHOT
+        - image: sedokray/inventory-service:0.0.1-SNAPSHOT
           name: inventory-service
           ports:
             - containerPort: 8082

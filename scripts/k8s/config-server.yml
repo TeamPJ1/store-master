@@ -17,7 +17,7 @@ spec:
         app: config-server-app
     spec:
       containers:
-        - image: config-server:0.0.1-SNAPSHOT
+        - image: sedokray/config-server:0.0.1-SNAPSHOT
           name: config-server
           ports:
             - containerPort: 8761

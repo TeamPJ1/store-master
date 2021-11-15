@@ -17,7 +17,7 @@ spec:
         app: store-app-ui-app
     spec:
       containers:
-        - image: store-app-ui:0.0.1-SNAPSHOT
+        - image: sedokray/store-app-ui:0.0.1-SNAPSHOT
           name: store-app-ui
           ports:
             - containerPort: 80
