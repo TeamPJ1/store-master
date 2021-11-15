@@ -49,7 +49,7 @@ metadata:
 spec:
   selector:
     app: inventory-service-app
-  type: ClusterIP
+  type: ClusterIP  # by ClusterIP , otherwase NodePort, LoadBalancer, ExternalName
   ports:
     - port: 8082
       targetPort: 8082
