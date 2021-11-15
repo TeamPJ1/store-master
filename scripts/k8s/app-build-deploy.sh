@@ -1,4 +1,5 @@
 #!/bin/bash
+version="0.0.1-SNAPSHOT"
 while getopts n:s:b:i:v: flag
 do
     case "${flag}" in
@@ -20,7 +21,7 @@ then
   exit 1
 fi
 
-if [! -z "$version" ]
+if [! -n "$version" ]
 then
   version="0.0.1-SNAPSHOT"
   echo "Version: $version"
