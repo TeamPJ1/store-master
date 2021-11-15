@@ -1,5 +1,5 @@
 #!/bin/bash
-while getopts n:s:b:i: flag
+while getopts n:s:b:i:v: flag
 do
     case "${flag}" in
         n) namespace=${OPTARG};;
@@ -23,8 +23,9 @@ fi
 if [! -z "$version" ]
 then
   version="0.0.1-SNAPSHOT"
+  echo "Version: $version"
 fi
-echo "Version: $version"
+
 
 pushRepo=false
 if [[ "$build" == "true" ]]
