@@ -21,6 +21,12 @@ spec:
           name: gateway-proxy
           ports:
             - containerPort: 8700
+          env:
+            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+              valueFrom:
+                configMapKeyRef:
+                  name: eureka-cm
+                  key: eureka_service_address
       initContainers:
         - name: init-eureka-lb
           image: busybox:1.28

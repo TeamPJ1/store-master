@@ -21,6 +21,12 @@ spec:
           name: config-server
           ports:
             - containerPort: 8761
+          env:
+            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+              valueFrom:
+                configMapKeyRef:
+                  name: eureka-cm
+                  key: eureka_service_address
       initContainers:
         - name: init-eureka-lb
           image: busybox:1.28

@@ -21,6 +21,12 @@ spec:
           name: inventory-service
           ports:
             - containerPort: 8082
+          env:
+            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+              valueFrom:
+                configMapKeyRef:
+                  name: eureka-cm
+                  key: eureka_service_address
       initContainers: # waiting to initialise other service before creating pod
         - name: init-eureka-lb
           image: busybox:1.28
