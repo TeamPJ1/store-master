@@ -6,25 +6,47 @@ do
         s) state=${OPTARG};;
         b) build=${OPTARG};;
         i) ipaddress=${OPTARG};;
+        v) version=${OPTARG};;
     esac
 done
 echo "Namespace: "$namespace
 echo "State: $state"
 echo "Build: $build"
 echo "Ip address: $ipaddress"
+echo "Version: $version"
 
-if [ -z "$namespace" ]
+if [[ "$version" == null ]]
 then
-  echo "This script requires a namespace argument input. None found. Exiting."
-  exit 1
+  version= "0.0.1-SNAPSHOT"
 fi
 
+pushRepo = false
 if [[ "$build" == "true" ]]
 then
   echo "###### Build docker images for backend services"
   mvn compile com.google.cloud.tools:jib-maven-plugin:2.3.0:dockerBuild
   echo "###### Build docker image for store-app-ui"
   docker build -t store-app-ui:0.0.1-SNAPSHOT ./store-app-ui
+  pushRepo = true
+fi
+
+CI_REGISTRY_USER = "sedokray"
+CI_REGISTRY_PASSWORD = "medsaid1133"
+CI_REGISTRY = "https://hub.docker.com"
+CI_REPO = "sedokray"
+
+echo "###### Push docker image to docker registry"
+if [[ "$pushRepo" == "true" ]]
+then
+  echo "###### Connect to docker registry"
+  docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+  for image in eureka-server config-server gateway-proxy inventory-service store-app-ui
+  do
+    echo "###### Tag docker image: $CI_REPO/$image:$version"
+    docker tag "$image:$version" "$CI_REPO/$image:$version"
+    echo "###### Push docker image: $CI_REPO/$image:$version"
+    docker push "$CI_REPO/$image:$version"
+  done
 fi
 
 cd scripts/k8s
