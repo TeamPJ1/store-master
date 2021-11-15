@@ -20,20 +20,20 @@ then
   version= "0.0.1-SNAPSHOT"
 fi
 
-pushRepo = false
+pushRepo=false
 if [[ "$build" == "true" ]]
 then
   echo "###### Build docker images for backend services"
   mvn compile com.google.cloud.tools:jib-maven-plugin:2.3.0:dockerBuild
   echo "###### Build docker image for store-app-ui"
   docker build -t store-app-ui:0.0.1-SNAPSHOT ./store-app-ui
-  pushRepo = true
+  pushRepo=true
 fi
 
-CI_REGISTRY_USER = "sedokray"
-CI_REGISTRY_PASSWORD = "medsaid1133"
-CI_REGISTRY = "https://hub.docker.com"
-CI_REPO = "sedokray"
+CI_REGISTRY_USER="sedokray"
+CI_REGISTRY_PASSWORD="medsaid1133"
+CI_REGISTRY="https://hub.docker.com"
+CI_REPO="sedokray"
 
 echo "###### Push docker image to docker registry"
 if [[ "$pushRepo" == "true" ]]
