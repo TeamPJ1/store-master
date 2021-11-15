@@ -20,7 +20,7 @@ then
   exit 1
 fi
 
-if [-z "$namespace" ]
+if [! -z "$version" ]
 then
   version="0.0.1-SNAPSHOT"
 fi
