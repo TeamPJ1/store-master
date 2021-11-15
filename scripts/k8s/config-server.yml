@@ -1,46 +1,61 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: config-server-app
+  name: config-server-cm
+data:
+  config_server_address: http://config-server-0.config-server:8888
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: config-server
   labels:
-    app: config-server-app
+    app: web
 spec:
+  serviceName: "config-server"
   replicas: 1
   selector:
     matchLabels:
-      app: config-server-app
-  strategy:
-    type: Recreate
+      app: config-server
+  updateStrategy:
+    type: RollingUpdate
+  podManagementPolicy: OrderedReady
   template:
     metadata:
       labels:
-        app: config-server-app
+        app: config-server
     spec:
       containers:
         - image: sedokray/config-server:0.0.1-SNAPSHOT
           name: config-server
           ports:
-            - containerPort: 8761
+            - containerPort: 8888
           env:
             - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
               valueFrom:
                 configMapKeyRef:
                   name: eureka-cm
                   key: eureka_service_address
+            - name: SPRING_CLOUD_CONFIG_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: config-server-cm
+                  key: config_server_address
       initContainers:
         - name: init-eureka-lb
           image: busybox:1.28
           command: ['sh', '-c', "until nslookup eureka-lb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo en attente de eureka-lb; sleep 2; done"]
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: config-server-svc
   labels:
-    app: config-server-app
+    app: config-server
 spec:
   selector:
-    app: config-server-app
+    app: config-server
   type: ClusterIP # by ClusterIP , otherwase NodePort, LoadBalancer, ExternalName
   ports:
     - port: 8761
