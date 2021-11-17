@@ -1,8 +1,8 @@
 #!/bin/bash
 # set mode -x to print a trace of simple commands, for commands executed in shell
 set -x
-# set mode -e  print all executed command in shell
-set -e
+# set mode -e  exit if error has throwed
+# set -e
 
 version="0.0.1-SNAPSHOT"
 while getopts n:s:b:i:v: flag
