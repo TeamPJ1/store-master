@@ -31,21 +31,6 @@ spec:
         - name: init-eureka
           image: busybox:1.28
           command: ['sh', '-c', "until nslookup eureka.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo en attente de eureka; sleep 2; done"]
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: cloud-gateway-svc
-  labels:
-    app: cloud-gateway-app
-spec:
-  selector:
-    app: cloud-gateway-app
-  type: LoadBalancer
-  ports:
-    - port: 8700
-      targetPort: 8700
-      protocol: TCP
 
 ---
 apiVersion: v1
