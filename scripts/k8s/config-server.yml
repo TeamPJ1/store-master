@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: configserver-cm
 data:
-  config_server_address: http://config.store.com
+  config_server_address: http://config.store.com:8200
 # config_server_address: http://configserver:8888
 ---
 apiVersion: v1
@@ -74,7 +74,7 @@ spec:
     app: configserver
   type: NodePort
   ports:
-    - port: 8200
+    - port: 80
       targetPort: 8888
       nodePort: 303012
       protocol: TCP
@@ -97,6 +97,6 @@ spec:
   type: ExternalName
   externalName: config.store.com
   ports:
-    - port: 80
+    - port: 8200
       targetPort: 8888
       protocol: TCP
