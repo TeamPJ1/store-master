@@ -8,6 +8,11 @@ spring:
       name: inventory-service
       uri: ${SPRING_CLOUD_CONFIG_URI:http://localhost:8888}
       fail-fast: true
+      retry:
+        # retry configuration retrieval up to 100 times
+        max-attempts: 30
+        # max backoff interval
+        max-interval: 8000
 management:
   endpoints:
     web:
