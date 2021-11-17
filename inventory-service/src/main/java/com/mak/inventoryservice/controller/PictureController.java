@@ -1,3 +1,4 @@
+/*
 package com.mak.inventoryservice.controller;
 
 import com.mak.inventoryservice.config.PictureProperties;
@@ -51,3 +52,4 @@ public class PictureController {
 
 }
 
+*/
