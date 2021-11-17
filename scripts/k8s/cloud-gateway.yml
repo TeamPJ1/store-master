@@ -46,3 +46,20 @@ spec:
     - port: 8700
       targetPort: 8700
       protocol: TCP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloud-gateway-lb
+  labels:
+    app: cloud-gateway-app
+spec:
+  selector:
+    app: cloud-gateway-app
+  type: NodePort
+  ports:
+    - port: 8700
+      targetPort: 8700
+      protocol: TCP
+      nodePort: 30314
