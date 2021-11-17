@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: configserver-cm
 data:
-  config_server_address: http://configserver-0.configserver:8888
+  config_server_address: http://configserver:8888
 
 ---
 apiVersion: v1
