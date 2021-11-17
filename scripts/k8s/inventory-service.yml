@@ -30,15 +30,15 @@ spec:
             - name: SPRING_CLOUD_CONFIG_URI
               valueFrom:
                 configMapKeyRef:
-                  name: config-server-cm
+                  name: configserver-cm
                   key: config_server_address
       initContainers: # waiting to initialise other service before creating pod
         - name: init-eureka
           image: busybox:1.28
           command: ['sh', '-c', "until nslookup eureka.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo en attente de eureka; sleep 2; done"]
-        - name: init-config-server-svc
+        - name: init-configserver-svc
           image: busybox:1.28
-          command: ['sh', '-c', "until nslookup config-server-svc.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo en attente de config-server-svc; sleep 2; done"]
+          command: ['sh', '-c', "until nslookup configserver.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo en attente de configserver; sleep 2; done"]
 ---
 apiVersion: v1
 kind: Service

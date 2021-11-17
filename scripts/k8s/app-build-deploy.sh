@@ -10,11 +10,14 @@ do
         v) version=${OPTARG};;
     esac
 done
+
+echo "###########################Params##############################"
 echo "Namespace: "$namespace
 echo "State: $state"
 echo "Build: $build"
 echo "Ip address: $ipaddress"
 echo "Version: $version"
+echo "###############################################################"
 
 # if [ -z "$namespace" ]   équivalent à [ ! -n "$namespace" ]
 if [ -z "$namespace" ]

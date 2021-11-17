@@ -1,4 +1,4 @@
-git status/*
+/*
 package com.mak.inventoryservice.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
