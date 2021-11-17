@@ -3,8 +3,8 @@ kind: ConfigMap
 metadata:
   name: configserver-cm
 data:
-  config_server_address: http://configserver:8888
-
+  config_server_address: http://config.store.com
+# config_server_address: http://configserver:8888
 ---
 apiVersion: v1
 kind: Service
@@ -74,10 +74,29 @@ spec:
     app: configserver
   type: NodePort
   ports:
-    - port: 80
+    - port: 8200
       targetPort: 8888
+      nodePort: 303012
+      protocol: TCP
+
 
 # ClusterIP: Expose le service sur une IP interne au cluster. Le choix de cette valeur rend le service uniquement accessible à partir du cluster. Il s'agit du ServiceType par défaut.
 # NodePort: Expose le service sur l'IP de chaque nœud sur un port statique (le NodePort). Un service ClusterIP, vers lequel le service NodePort est automatiquement créé. Vous pourrez contacter le service NodePort, depuis l'extérieur du cluster, en demandant <NodeIP>: <NodePort>.
 # LoadBalancer: Expose le service en externe à l'aide de l'équilibreur de charge d'un fournisseur de cloud. Les services NodePort et ClusterIP, vers lesquels les itinéraires de l'équilibreur de charge externe, sont automatiquement créés.
 # ExternalName : Mappe le service au contenu du champ externalName (par exemple foo.bar.example.com), en renvoyant un enregistrement CNAME avec sa valeur. Aucun proxy d'aucune sorte n'est mis en place.
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: configserver-svc
+  labels:
+    app: configserver
+spec:
+  selector:
+    app: configserver
+  type: ExternalName
+  externalName: config.store.com
+  ports:
+    - port: 80
+      targetPort: 8888
+      protocol: TCP

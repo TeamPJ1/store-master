@@ -5,7 +5,8 @@ kind: ConfigMap
 metadata:
   name: eureka-cm
 data:
-  eureka_service_address: http://eureka-0.eureka:8761/eureka
+  eureka_service_address: http://eureka.store.com/eureka
+# eureka_service_address: http://eureka-0.eureka:8761/eureka
 ---
 apiVersion: v1
 kind: Service
@@ -66,5 +67,24 @@ spec:
     app: eureka
   type: NodePort
   ports:
+    - port: 8100
+      targetPort: 8761
+      nodePort: 303011
+      protocol: TCP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eureka-svc
+  labels:
+    app: eureka
+spec:
+  selector:
+    app: eureka
+  type: ExternalName
+  externalName: eureka.store.com
+  ports:
     - port: 80
       targetPort: 8761
+      protocol: TCP
