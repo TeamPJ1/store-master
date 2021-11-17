@@ -76,7 +76,7 @@ spec:
   ports:
     - port: 80
       targetPort: 8888
-      nodePort: 303012
+      nodePort: 30312
       protocol: TCP
 
 
