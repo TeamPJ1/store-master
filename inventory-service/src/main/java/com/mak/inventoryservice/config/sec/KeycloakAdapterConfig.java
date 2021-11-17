@@ -1,4 +1,4 @@
-//package com.mak.inventoryservice.sec;
+//package com.mak.inventoryservice.config.sec;
 //
 //import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 //import org.springframework.context.annotation.Bean;

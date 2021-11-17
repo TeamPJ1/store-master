@@ -1,11 +1,16 @@
 package com.mak.inventoryservice.controller;
 
 import com.mak.inventoryservice.entities.Product;
+import com.mak.inventoryservice.exception.ProductNotFoundException;
 import com.mak.inventoryservice.repository.ProductRepository;
+import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -13,7 +18,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 //@CrossOrigin(origins= {"http://localhost:4200/"}, methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
-
+@Api(value = "API pour es opérations CRUD sur les produits.")
 @RestController
 @RequestMapping("/api/custom")
 public class ProductController {
@@ -31,14 +36,24 @@ public class ProductController {
     }
 
     @PostMapping("/saveProduct")
-    Product saveProduct(@RequestBody Product p) {
+    Product saveProduct(@Valid @RequestBody Product p) {
         return productRepository.save(p);
     }
 
 
-    /*  Custom product  */
+    /*  get all products  */
+    @ApiOperation(value = "getProducts", notes = "", nickname = "Inventory")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successful retrieval", response = Product.class, responseContainer = "List"),
+            @ApiResponse(code = 200, message = "Successfully retrieved list"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+            @ApiResponse(code = 500, message = "Server error"),
+    })
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getAllProducts(@RequestParam(required = false) String name) {
+    public ResponseEntity<List<Product>> getAllProducts(@ApiParam(value = "name",
+            required = false, defaultValue = "") @RequestParam(required = false) String name) {
         try {
             List<Product> products = new ArrayList<Product>();
             if (name == null) {
@@ -56,7 +71,7 @@ public class ProductController {
     }
 
     @GetMapping("/products/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable("id") long id) {
+    public ResponseEntity<Product> getProductById(@PathVariable("id") long id) throws ProductNotFoundException {
         Optional<Product> productData = productRepository.findById(id);
         if (productData.isPresent()) {
             return new ResponseEntity<>(productData.get(), HttpStatus.OK);
@@ -66,14 +81,11 @@ public class ProductController {
     }
 
     @PostMapping("/products")
-    public ResponseEntity<Product> createProduct(@RequestBody Product productDTO) {
-        try {
-            Product productToSave = productRepository
-                    .save(new Product(null, productDTO.getName(), productDTO.getPrice(), productDTO.getQuantity(), false));
-            return new ResponseEntity<>(productToSave, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<Product> createProduct(@Valid @RequestBody Product productDTO) {
+
+        Product productToSave = productRepository
+                .save(new Product(null, productDTO.getName(), productDTO.getPrice(), productDTO.getQuantity(), false, null, null, null));
+        return new ResponseEntity<>(productToSave, HttpStatus.CREATED);
     }
 
     @PutMapping("/products/{id}")
@@ -92,7 +104,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/products/{id}")
-    public ResponseEntity<HttpStatus> deleteProduct(@PathVariable("id") long id) {
+    public ResponseEntity<HttpStatus> deleteProduct(@PathVariable("id") long id) throws ProductNotFoundException {
         try {
             productRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

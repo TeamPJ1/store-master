@@ -1,4 +1,4 @@
-//package com.mak.inventoryservice.sec;
+//package com.mak.inventoryservice.config.sec;
 //
 //import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
 //import org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter;

@@ -1,4 +1,4 @@
-package com.mak.inventoryservice.sec;
+package com.mak.inventoryservice.config.cors;
 
 
 import org.springframework.beans.factory.annotation.Value;
