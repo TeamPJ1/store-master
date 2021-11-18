@@ -5,7 +5,8 @@ kind: ConfigMap
 metadata:
   name: eureka-cm
 data:
-  eureka_service_address: http://eureka:8761/eureka
+  eureka_service_address: http://eureka-0.eureka.storestg.svc.cluster.local:8761/eureka
+# eureka_service_address: http://eureka:8761/eureka
 #  eureka_service_address: http://eureka.store.com:8100/eureka
 
 ---
