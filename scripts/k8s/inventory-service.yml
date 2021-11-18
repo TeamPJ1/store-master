@@ -25,9 +25,9 @@ spec:
         - name: init-eureka
           image: busybox:1.28
           command: ['sh', '-c', "until nslookup eureka.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo en attente de eureka; sleep 2; done"]
-        - name: init-configserver-svc
-          image: busybox:1.28
-          command: ['sh', '-c', "until nslookup configserver.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo en attente de configserver; sleep 2; done"]
+ #       - name: init-configserver-svc
+ #         image: busybox:1.28
+ #         command: ['sh', '-c', "until nslookup configserver.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo en attente de configserver; sleep 2; done"]
 ---
 apiVersion: v1
 kind: Service
