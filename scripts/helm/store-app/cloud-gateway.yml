@@ -21,24 +21,18 @@ spec:
           name: gateway-proxy
           ports:
             - containerPort: 8700
-      initContainers:
-        - name: init-eureka
-          image: busybox:1.28
-          command: ['sh', '-c', "until nslookup eureka.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo en attente de eureka; sleep 2; done"]
-
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: cloud-gateway-lb
+  name: cloud-gateway-svc
   labels:
     app: cloud-gateway-app
 spec:
   selector:
     app: cloud-gateway-app
-  type: NodePort
+  type: LoadBalancer
   ports:
     - port: 8700
       targetPort: 8700
       protocol: TCP
-      nodePort: 30314

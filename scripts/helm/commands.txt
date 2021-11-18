@@ -1,0 +1,17 @@
+lister les repository :
+    helm repo list
+rechercher un charts:
+    helm search hub wordpress		# cherche des charts sur le hub
+    helm search repo wordpress	# cherche des dépôts avec mots clefs dans charts
+
+helm hub :
+    https://hub.helm.sh/
+    https://hub.helm.sh/charts/bitnami/wordpress
+
+HELM : structure
+hello-world /
+  Chart.yaml 		# Description Chart
+  values.yaml		# Variables (template)
+  templates /		# templates de manifests
+  charts /			# sous charts (optionnel)
+  .helmignore		# ignorer des fichiers pour le dépôt

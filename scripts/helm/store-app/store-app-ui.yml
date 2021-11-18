@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: store-app-ui-app
+  labels:
+    app: store-app-ui-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: store-app-ui-app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: store-app-ui-app
+    spec:
+      containers:
+        - image: sedokray/store-app-ui:0.0.1-SNAPSHOT
+          name: store-app-ui
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: store-app-ui-svc
+  labels:
+    app: store-app-ui-app
+spec:
+  selector:
+    app: store-app-ui-app
+  type: ClusterIP
+  ports:
+    - port: 8081
+      targetPort: 80  #  equivalent à  - containerPort: 80 dans le pod or deployement
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: storeapp-ingress
+# annotations:
+#    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /store
+            pathType: Prefix
+            backend:
+              service:
+                name: store-app-ui-svc
+                port:
+                  number: 8081
+#    - host: 'web.store.kub'
+#      http:
+#       paths:
+#          - path: /
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: store-app-ui-svc
+#                port:
+#                  number: 8081
