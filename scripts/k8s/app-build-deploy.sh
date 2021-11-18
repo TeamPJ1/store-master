@@ -83,7 +83,7 @@ echo "###### Deploy store app using k8s"
 kubectl create namespace $namespace
 #kubectl apply -f  eureka-server.yml -n $namespace
 kubectl create -f  eureka-server.yml -n $namespace
-kubectl create -f  config-server.yml -n $namespace
+#kubectl create -f  config-server.yml -n $namespace
 kubectl create -f  cloud-gateway.yml -n $namespace
 kubectl create -f  inventory-service.yml -n $namespace
 kubectl create -f  store-app-ui.yml -n $namespace
@@ -92,5 +92,4 @@ echo "###### Test store app"
 curl -H "Host: web.store.kub" $ipaddress
 curl  $ipaddress/store
 echo "###### Check resources"
-echo "kubectl get all -n $namespace"
 kubectl get all -n $namespace
