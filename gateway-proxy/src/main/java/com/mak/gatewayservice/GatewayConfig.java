@@ -40,4 +40,7 @@ public class GatewayConfig {
                 .route((r) -> r.path("/api/custom/**").uri("lb://INVENTORY-SERVICE/"))
                 .build();
     }
+
+
+
 }
