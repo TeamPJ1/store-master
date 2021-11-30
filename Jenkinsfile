@@ -9,7 +9,6 @@ pipeline {
         stage("Code Checkout from Github") {
             steps {
                 git branch: 'kube', url: 'https://github.com/TeamPJ1/store-master.git' //,credentialsId: 'gitlab_access_token'
-                sh 'chmod +x -R ${env.WORKSPACE}'
                 sh 'chmod +x -R  scripts'
             }
         }
