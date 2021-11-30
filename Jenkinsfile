@@ -35,7 +35,7 @@ pipeline {
             steps {
                // https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-maven/
                 withSonarQubeEnv(installationName: 'sonarqube-container', credentialsId: 'sonarqube_access_token') {
-                     sh 'mvn -Dmaven.test.skip=true   org.sonarsource.scanner.maven:sonar-maven-plugin:4.6.1.2450:sonar'
+                     sh 'mvn -Dmaven.test.skip=true   sonar:sonar'
                 }
             }
         }
