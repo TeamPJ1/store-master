@@ -96,11 +96,7 @@ public class ProductRestControllerIntegrationTests {
                 .content(objectMapper.writeValueAsString(newProduct))
         )
                 .andDo(print())
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", notNullValue()))
-                .andExpect(jsonPath("$.name", is(newProduct.getName())))
-                .andExpect(jsonPath("$.price", is(newProduct.getPrice())))
-                .andExpect(jsonPath("$.quantity", is(newProduct.getQuantity())));
+                .andExpect(status().isBadRequest());
     }
 
 

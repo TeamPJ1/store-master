@@ -10,6 +10,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,9 +35,14 @@ public class ProductServiceLayerTest {
     @Test
     public void savedProductSuccess() {
         Product product = new Product();
+        product.setId(1L);
         product.setName("Phone");
         product.setPrice(20);
         product.setQuantity(20);
+        product.setReleaseDate(LocalDate.of(2022, Month.DECEMBER, 1));
+        product.setCreateTimestamp(LocalDateTime.now());
+        product.setUpdateTimestamp(LocalDateTime.now());
+
 
         // providing knowledge
         when(productRepository.save(any(Product.class))).thenReturn(product);

@@ -84,7 +84,7 @@ public class ProductController {
     public ResponseEntity<Product> createProduct(@Valid @RequestBody Product productDTO) {
 
         Product productToSave = productRepository
-                .save(new Product(null, productDTO.getName(), productDTO.getPrice(), productDTO.getQuantity(), false, null, null, null));
+                .save(new Product(null, productDTO.getName(), productDTO.getPrice(), productDTO.getQuantity(), productDTO.isSelected(), productDTO.getReleaseDate(), productDTO.getCreateTimestamp(), productDTO.getUpdateTimestamp()));
         return new ResponseEntity<>(productToSave, HttpStatus.CREATED);
     }
 
